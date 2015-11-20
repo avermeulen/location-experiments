@@ -27,14 +27,20 @@ function byId(id){
         var currentKey = "";
         var currentLocation = "";
 
+        var locationListTemplateSrc = byId("locationListTemplate").innerHTML;
+        var locationListTemplate = Handlebars.compile(locationListTemplateSrc);
+
+        var coordsListTemplateSrc = byId("coordsListTemplate").innerHTML;
+        var coordsListTemplate = Handlebars.compile(coordsListTemplateSrc);
+
+
         locationDatabase.allDocs({}, function(err, docs){
             if (err) return alert(err);
 
             var rows = docs.rows;
-            for (var itemIndex in rows){
-                var item = rows[itemIndex];
-                addSubjectList.innerHTML += "<li>" + item.key + "</li>";
-            }
+            addSubjectList.innerHTML = locationListTemplate({
+                locations : docs.rows
+            })
         });
 
         addLocationButton.addEventListener('click', function(evt){
@@ -67,13 +73,7 @@ function byId(id){
                 .get(currentKey)
                 .then(function(theLocation){
                     currentLocation = theLocation;
-                    locations.innerHTML = "";
-                    var locationList = currentLocation.locations;
-                    for (var i = 0; i < locationList.length; i++) {
-                        var loc = locationList[i];
-                        var locationString = loc.lat + ", " + loc.long;
-                        locations.innerHTML += "<li>" + locationString + "</li>";
-                    }
+                    locations.innerHTML =  coordsListTemplate({coords : currentLocation.locations });
                 });
 
         });

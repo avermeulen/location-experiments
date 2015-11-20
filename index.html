@@ -6,13 +6,26 @@
         <link rel="stylesheet" href="master.css" media="screen" title="no title" charset="utf-8">
         <link rel="stylesheet" href="bower_components/normalize-css/normalize.css" media="screen" title="no title" charset="utf-8">
         <script src="bower_components/pouchdb/dist/pouchdb.js" charset="utf-8"></script>
+        <script src="bower_components/handlebars/handlebars.min.js" charset="utf-8"></script>
         <script src="app.js" charset="utf-8"></script>
+        <script id="locationListTemplate" type="text/x-handlebars-template">
+          {{#locations}}
+          <li>{{this.key}}</li>
+          {{/locations}}
+        </script>
+        <script id="coordsListTemplate" type="text/x-handlebars-template">
+          {{#coords}}
+          <li>{{this.lat}}, {{this.long}}</li>
+          {{/coords}}
+        </script>
     </head>
     <body>
+
+
         <div id="container">
             <div id="menu">
                 <h1>Add</h1>
-                <input type="text" name="subject" value="" placeholder="location" id="locationName">
+                <input type="text" name="subject" value="" placeholder="location    " id="locationName">
                 <input type="button" name="name" value="add" id="addLocationButton">
                 <h2>Locations</h2>
                 <ul id="subjectList">
