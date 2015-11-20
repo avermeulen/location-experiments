@@ -1,0 +1,30 @@
+body{
+    background-color: #2292A4;
+}
+#container {
+
+    width : 80%;
+    height: 80%;
+    margin : 0 auto;
+    background-color: #F5EFED;
+
+}
+
+#menu {
+    float : left;
+    width : 25%;
+    background-color: #BDBF09;
+    padding: 1em;
+}
+
+#content {
+    float: right;
+    width: 65%;
+    background-color: #BDBF09;
+    padding: 1em;
+
+}
+
+.hidden {
+    display: none;;
+}
