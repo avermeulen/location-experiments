@@ -16,11 +16,12 @@ function byId(id){
     ready(function(){
 
         var locationName = byId('locationName');
-        var addSubjectButton = byId('addSubjectButton');
+        var addLocationButton = byId('addLocationButton');
         var addSubjectList = byId('subjectList');
         var captureLocation = byId('captureLocation');
         var locations = byId('locations');
         var content = byId('content');
+        var displayLocation = byId('displayLocation');
 
         var locationDatabase = new PouchDB('locations');
         var currentKey = "";
@@ -34,10 +35,9 @@ function byId(id){
                 var item = rows[itemIndex];
                 addSubjectList.innerHTML += "<li>" + item.key + "</li>";
             }
-
         });
 
-        addSubjectButton.addEventListener('click', function(evt){
+        addLocationButton.addEventListener('click', function(evt){
             if (locationName.value.length >= 3){
 
                 var location = {
@@ -58,10 +58,11 @@ function byId(id){
         });
 
         addSubjectList.addEventListener('click', function(){
-            //alert(event.target.innerHTML);
             content.className = "";
             //
             currentKey = event.target.innerHTML;
+            displayLocation.innerHTML = currentKey;
+
             locationDatabase
                 .get(currentKey)
                 .then(function(theLocation){
@@ -86,6 +87,7 @@ function byId(id){
                 currentLocation.locations.push(lat_long);
 
                 locationDatabase.put(currentLocation, function(err, location){
+                    if (err) return alert(err);
 
                     var locationString = lat_long.lat + ", " + lat_long.long;
                     locations.innerHTML += "<li>" + locationString + "</li>";
